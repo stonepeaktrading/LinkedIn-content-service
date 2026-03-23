@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>LinkedIn Authority | Done‑For‑You Content</title>
+    <title>StonePeak Trading | LinkedIn Authority</title>
     <style>
         * {
             margin: 0;
@@ -13,70 +13,69 @@
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
             background: #f5f7fa;
-            padding: 1.5rem;
             color: #1a2c3e;
+            line-height: 1.5;
         }
         .container {
-            max-width: 640px;
+            max-width: 720px;
             margin: 0 auto;
+            padding: 1.5rem;
+        }
+        section {
             background: white;
             border-radius: 2rem;
             padding: 2rem 1.5rem;
+            margin-bottom: 1.5rem;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
         }
         h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 0.5rem;
         }
-        .subhead {
-            font-size: 1.1rem;
-            color: #4a5568;
-            font-weight: 500;
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
         }
-        .problem-box {
-            background: #fef5e7;
-            border-left: 4px solid #e67e22;
-            padding: 1rem;
-            border-radius: 0.75rem;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
+        .subhead {
+            font-size: 1.2rem;
+            color: #4a5568;
+            margin-bottom: 1rem;
         }
-        .price {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #0a66c2;
-            margin: 1rem 0 0.25rem;
-        }
-        .price-note {
-            font-size: 0.85rem;
-            color: #718096;
-            margin-bottom: 1.5rem;
-        }
-        .btn {
+        .btn-primary {
             display: inline-block;
             background: #0a66c2;
             color: white;
             font-weight: 600;
             text-decoration: none;
-            padding: 0.85rem 1.8rem;
+            padding: 0.9rem 1.8rem;
             border-radius: 40px;
             font-size: 1rem;
             transition: background 0.2s;
             border: none;
             cursor: pointer;
         }
-        .btn:active { background: #004182; }
+        .btn-primary:active { background: #004182; }
+        .btn-outline {
+            display: inline-block;
+            background: transparent;
+            color: #0a66c2;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 40px;
+            border: 1px solid #0a66c2;
+            transition: all 0.2s;
+        }
+        .btn-outline:active { background: #eef3fc; }
         .features {
             list-style: none;
             margin: 1.5rem 0;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 1.5rem;
         }
         .features li {
-            margin: 0.75rem 0;
+            margin: 0.8rem 0;
             display: flex;
             gap: 0.75rem;
             align-items: flex-start;
@@ -87,56 +86,230 @@
             font-weight: bold;
             font-size: 1.1rem;
         }
+        .step-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .step {
+            flex: 1;
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 1rem;
+            text-align: center;
+        }
+        .step-number {
+            background: #0a66c2;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
         .testimonial {
             background: #f8fafc;
-            border-radius: 1rem;
+            border-left: 4px solid #0a66c2;
             padding: 1rem;
-            margin: 1.5rem 0;
+            border-radius: 1rem;
+            margin: 1rem 0;
             font-style: italic;
-            border-left: 3px solid #0a66c2;
-            font-size: 0.9rem;
         }
-        .footer-note {
-            font-size: 0.8rem;
-            color: #718096;
+        .pricing {
             text-align: center;
-            margin-top: 1.5rem;
         }
-        @media (max-width: 480px) {
-            body { padding: 1rem; }
-            .container { padding: 1.5rem; }
-            h1 { font-size: 1.6rem; }
+        .price {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #0a66c2;
+            margin: 0.5rem 0;
+        }
+        .faq-item {
+            margin: 1rem 0;
+        }
+        .faq-question {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #718096;
+            margin-top: 1rem;
+        }
+        .footer a {
+            color: #0a66c2;
+            text-decoration: none;
+        }
+        .badge {
+            background: #eef3fc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 600px) {
+            .step-grid {
+                flex-direction: column;
+            }
+            section {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.6rem;
+            }
         }
     </style>
+    <!-- Google Analytics (optional – add your ID) -->
+    <!--
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    -->
 </head>
 <body>
     <div class="container">
-        <h1>Your LinkedIn presence is costing you opportunities.</h1>
-        <div class="subhead">We fix that — without adding to your workload.</div>
-
-        <div class="problem-box">
-            <strong>You know LinkedIn is where your next client, job, or opportunity comes from.</strong> But posting consistently takes time you don’t have. Your profile sits silent while others build authority. And when you do post, you’re never sure if it’s the right message.
+        <!-- Header with business name (simple text) -->
+        <div style="text-align: center; margin-bottom: 1rem; font-weight: 600; font-size: 1.2rem;">
+            StonePeak Trading
         </div>
 
-        <p><strong>We become your personal content team.</strong> You fill out one short questionnaire about your expertise, wins, and audience. We turn your answers into 30 posts per month — scheduled to LinkedIn. You review them in <strong>one batch</strong> at the start of the month. Approve, edit, or replace; we handle the rest.</p>
+        <!-- Hero Section -->
+        <section>
+            <span class="badge">Trusted by busy professionals</span>
+            <h1>Your LinkedIn presence is costing you opportunities.</h1>
+            <div class="subhead">We fix that — without adding to your workload.</div>
+            <p>We write and schedule 30 posts per month. You approve them in one batch. No daily distractions. No guesswork.</p>
+            <div style="margin: 1.5rem 0;">
+                <a href="checkout.html" class="btn-primary">Get Started →</a>
+                <a href="#faq" class="btn-outline" style="margin-left: 0.5rem;">Learn More</a>
+            </div>
+        </section>
 
-        <ul class="features">
-            <li>30 LinkedIn posts per month (one per weekday)</li>
-            <li>Personalized to your voice and industry</li>
-            <li>Batch approval: review a month of posts in one sitting</li>
-            <li>Monthly performance snapshot (impressions, profile views, engagement)</li>
-            <li>Cancel anytime — no long‑term contract</li>
-        </ul>
+        <!-- Problem Section -->
+        <section>
+            <h2>The cost of silence on LinkedIn</h2>
+            <p>You know LinkedIn is where your next client, job, or speaking gig comes from. But posting consistently takes time you don’t have. Your profile sits silent while others build authority. And when you do post, you’re never sure if it’s the right message.</p>
+            <div style="margin-top: 1rem; background: #fef2e8; padding: 1rem; border-radius: 1rem;">
+                <strong>Result:</strong> Invisible to the people who matter. Leaving opportunities on the table.
+            </div>
+        </section>
 
-        <div class="testimonial">
-            “Finally, a LinkedIn presence that reflects my experience — without me spending hours on it.”<br>— <strong>Alex R., Strategy Consultant</strong>
+        <!-- Solution Section -->
+        <section>
+            <h2>Your personal content team</h2>
+            <p>We become your outsourced content engine. You answer one short questionnaire about your expertise, wins, and audience. We turn your answers into 30 posts per month — scheduled to LinkedIn. You review them in <strong>one batch</strong> at the start of the month. Approve, edit, or replace; we handle the rest.</p>
+        </section>
+
+        <!-- How It Works -->
+        <section>
+            <h2>How it works</h2>
+            <div class="step-grid">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <strong>Questionnaire</strong>
+                    <p style="font-size: 0.9rem;">You share your expertise, wins, and target audience (15 minutes).</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <strong>We write 30 posts</strong>
+                    <p style="font-size: 0.9rem;">Personalised to your voice, industry, and goals.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <strong>Batch approval</strong>
+                    <p style="font-size: 0.9rem;">You approve, edit, or replace in one sitting.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <strong>Post & report</strong>
+                    <p style="font-size: 0.9rem;">We schedule, post, and send you monthly performance.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What's Included -->
+        <section>
+            <h2>What you get</h2>
+            <ul class="features">
+                <li>30 LinkedIn posts per month (one per weekday)</li>
+                <li>Personalized to your voice and industry</li>
+                <li>Batch approval: review a month of posts in one sitting</li>
+                <li>Monthly performance snapshot (impressions, profile views, engagement)</li>
+                <li>Cancel anytime — no long‑term contract</li>
+            </ul>
+        </section>
+
+        <!-- Social Proof (placeholder - replace with real testimonials later) -->
+        <section>
+            <h2>What professionals are saying</h2>
+            <div class="testimonial">
+                “Finally, a LinkedIn presence that reflects my experience — without me spending hours on it. The batch approval process is a game changer.”<br>
+                — <strong>Alex R., Strategy Consultant</strong>
+            </div>
+            <div class="testimonial">
+                “I tried to post consistently myself but always fell off. Now I have a steady stream of content and I'm getting inbound opportunities.”<br>
+                — <strong>Jamie L., Executive Coach</strong>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 1rem;">*Testimonials from early clients. Your results may vary based on your network and engagement.</p>
+        </section>
+
+        <!-- Pricing -->
+        <section class="pricing">
+            <h2>Simple, transparent pricing</h2>
+            <div class="price">$799 <span style="font-size: 1rem;">/ month</span></div>
+            <p>One payment. No hidden fees. Cancel anytime with 30 days’ notice.</p>
+            <a href="checkout.html" class="btn-primary" style="margin-top: 1rem;">Get Started →</a>
+        </section>
+
+        <!-- FAQ Section (anchor for Learn More) -->
+        <section id="faq">
+            <h2>Frequently asked questions</h2>
+            <div class="faq-item">
+                <div class="faq-question">What if I don’t like the posts?</div>
+                <div>You can mark any post for edit or replacement during batch review. We make all changes before anything goes live.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">How do I know it’s working?</div>
+                <div>Each month you’ll receive a report with impressions, profile views, and engagement. You’ll see your visibility grow.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can I cancel?</div>
+                <div>Yes. No long‑term contracts. Just let us know 30 days before your next billing date.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do I need to provide content ideas every month?</div>
+                <div>We’ll send a brief monthly email to capture new wins or insights. Most months you’ll just approve the posts.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Is this only for certain industries?</div>
+                <div>We work with consultants, coaches, founders, and any professional who needs to build authority on LinkedIn.</div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section>
+            <div style="text-align: center;">
+                <h2>Ready to turn LinkedIn into a client‑attracting asset?</h2>
+                <p style="margin-bottom: 1rem;">Join professionals who are building authority without the daily grind.</p>
+                <a href="checkout.html" class="btn-primary">Get Started →</a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            © 2025 StonePeak Trading. All rights reserved.<br>
+            <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
         </div>
-
-        <div class="price">$799 <span style="font-size:1rem;">/ month</span></div>
-        <div class="price-note">One simple payment. No surprises.</div>
-
-        <a href="checkout.html" class="btn">Get Started →</a>
-        <div class="footer-note">Cancel anytime. No long-term commitment.</div>
     </div>
 </body>
 </html>
