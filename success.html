@@ -14,46 +14,44 @@
         <i class="fas fa-check text-emerald-600 text-4xl"></i>
       </div>
 
-      <h1 class="text-4xl font-bold mb-4">Payment successful! 🎉</h1>
+      <h1 class="text-4xl font-bold mb-4">You're all set!</h1>
       <p class="text-xl text-zinc-600 mb-8" id="planMessage">
-        Thanks for choosing Stone Peak Trading. I'm excited to help you build your LinkedIn presence.
+        Thanks for signing up. I’m looking forward to working with you.
       </p>
 
       <div class="bg-emerald-50 rounded-xl p-6 mb-8 text-left">
-        <h2 class="text-2xl font-semibold mb-4">Next steps (10–15 minutes)</h2>
+        <h2 class="text-2xl font-semibold mb-4">What happens next</h2>
         <ol class="space-y-4">
           <li class="flex gap-3">
             <span class="font-bold text-emerald-700">1.</span>
-            <span><strong>Fill out the onboarding form</strong> – This tells me everything I need: commodities, origins, trading style, and your preferred communication (email or WhatsApp).</span>
+            <span><strong>Fill out the onboarding form</strong> – it’s a few quick questions about your commodities, style, and how you like to communicate.</span>
           </li>
           <li class="flex gap-3">
             <span class="font-bold text-emerald-700">2.</span>
-            <span><strong>LinkedIn access</strong> – After you complete the form, I'll reach out via your preferred communication to finalize the one‑time LinkedIn authorization (it's quick and secure).</span>
+            <span><strong>LinkedIn connection</strong> – once I get your form, I’ll reach out (email or WhatsApp) to set up the one‑time authorization. It takes 30 seconds, no passwords needed.</span>
           </li>
           <li class="flex gap-3">
             <span class="font-bold text-emerald-700">3.</span>
-            <span><strong>Wait for my draft</strong> – I’ll write your first batch of posts within 2 business days and send them for your review.</span>
+            <span><strong>I’ll write your first batch of posts</strong> – expect them within 2 business days. You’ll review them once, then they go live.</span>
           </li>
         </ol>
         <p class="mt-4 text-sm text-emerald-700 bg-white p-2 rounded text-center">
-          <i class="fas fa-info-circle mr-1"></i> I'll personally contact you to set up the LinkedIn connection. No extra work on your side.
+          ✨ That’s it. After the form, I’ll take care of everything.
         </p>
       </div>
 
       <div class="space-y-4">
-        <!-- Google Form link -->
         <a href="https://forms.gle/ebaEx3D27iDDPsa1A" target="_blank"
            class="inline-block w-full bg-emerald-700 text-white font-semibold py-4 rounded-xl hover:bg-emerald-800 transition">
-          <i class="fas fa-file-alt mr-2"></i> Complete Onboarding Form
+          <i class="fas fa-file-alt mr-2"></i> Fill out the onboarding form
         </a>
-        <!-- Placeholder for future OAuth button, currently replaced with message -->
-        <div class="w-full bg-zinc-100 text-zinc-500 font-semibold py-4 rounded-xl text-center border border-zinc-200">
-          <i class="fab fa-linkedin mr-2"></i> LinkedIn setup will be handled by Phil after form submission
+        <div class="w-full bg-zinc-100 text-zinc-500 py-4 rounded-xl text-center border border-zinc-200">
+          <i class="fab fa-linkedin mr-2"></i> LinkedIn setup: I'll contact you after the form
         </div>
       </div>
 
       <p class="text-sm text-zinc-500 mt-8">
-        If you have any questions, WhatsApp me at <strong>+260 973 789 333</strong> or email <strong>phil@stonepeaktrading.com</strong>. — Phil
+        Questions? Just WhatsApp me at <strong>+260 973 789 333</strong> or email <strong>phil@stonepeaktrading.com</strong>. – Phil
       </p>
     </div>
   </div>
@@ -69,7 +67,8 @@
       else if (plan === 'growth') planDisplay = 'Growth Plan';
       else if (plan === 'premium') planDisplay = 'Premium Plan';
       if (planDisplay) {
-        document.getElementById('planMessage').innerHTML = `You're now signed up for the <strong>${planDisplay}</strong>. I'll get your LinkedIn presence working for you.`;
+        const msg = document.getElementById('planMessage');
+        msg.innerHTML = `You're now on the ${planDisplay}. I’m excited to get your LinkedIn presence going.`;
       }
     }
     if (email) console.log('Client email:', email);
