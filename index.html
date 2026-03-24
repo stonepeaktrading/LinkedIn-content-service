@@ -1,220 +1,229 @@
-// app/page.tsx
-'use client';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stone Peak's Commodity Trader LinkedIn</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .hero-bg { background: linear-gradient(135deg, #064e3b 0%, #10b981 100%); }
+  </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900">
 
-import { useState } from 'react';
-
-export default function Home() {
-  const [loading, setLoading] = useState<string | null>(null);
-
-  const handlePayment = (tier: string, amount: number, planName: string) => {
-    setLoading(tier);
-
-    // Your real Lenco Public Key
-    const publicKey = 'pub-b279cea59e68bf274a5a3d60cf5c8ab090cc7cdc0a270a20';
-
-    // @ts-ignore - LencoPay is injected via script
-    if (typeof window.LencoPay === 'undefined') {
-      alert('Payment widget is still loading. Please refresh the page and try again.');
-      setLoading(null);
-      return;
-    }
-
-    window.LencoPay.getPaid({
-      key: publicKey,
-      reference: `sp-\( {tier}- \){Date.now()}`,
-      email: '',                    // Customer will enter during payment
-      amount: amount,
-      currency: 'USD',              // Change to 'ZMW' if you prefer Zambian Kwacha
-      channels: ['card', 'mobile-money'],
-      customer: {
-        firstName: '',
-        lastName: '',
-        phone: '',
-      },
-      metadata: {
-        plan: tier,
-        planName: planName,
-      },
-      onSuccess: function (response: any) {
-        console.log('Payment successful:', response);
-        alert(`Payment successful! Reference: ${response.reference}`);
-        
-        // Redirect to success page (we'll create this next)
-        window.location.href = `/success?reference=\( {response.reference}&plan= \){tier}&amount=${amount}`;
-      },
-      onClose: function () {
-        alert('Payment window closed.');
-        setLoading(null);
-      },
-      onConfirmationPending: function () {
-        alert('Payment is pending confirmation. We will notify you shortly.');
-      },
-    });
-
-    setLoading(null);
-  };
-
-  return (
-    <div className="min-h-screen bg-white font-sans">
-      {/* Hero */}
-      <div className="max-w-5xl mx-auto px-6 pt-24 pb-20 text-center">
-        <h1 className="text-6xl md:text-7xl font-bold tracking-tighter text-gray-900">
-          Stone Peak&apos;s Commodity Trader LinkedIn
-        </h1>
-        <p className="mt-8 text-2xl text-gray-600 max-w-3xl mx-auto">
-          Done-for-you LinkedIn content for physical agricultural commodity traders.<br />
-          Written by a fellow physical trader. One batch review per month.
-        </p>
-        <div className="mt-12">
-          <a href="#pricing" className="inline-block bg-emerald-700 hover:bg-emerald-800 text-white text-xl font-semibold px-12 py-5 rounded-2xl transition">
-            Choose Your Plan
-          </a>
-        </div>
-        <p className="mt-6 text-sm text-gray-500">Built exclusively for active physical traders worldwide • Grains • Oilseeds • Softs • Fertilizer</p>
+  <!-- Navigation -->
+  <nav class="bg-white border-b sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 bg-emerald-700 rounded-2xl flex items-center justify-center text-white font-bold">SP</div>
+        <span class="font-bold text-3xl tracking-tight">Stone Peak</span>
       </div>
-
-      {/* Problem */}
-      <div className="bg-gray-50 py-20">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-4xl font-semibold">You trade physicals. Not posts.</h2>
-          <p className="mt-8 text-xl text-gray-600">
-            While you negotiate FOB/CFR deals, chase vessel nominations, manage basis risk and logistics, 
-            other traders are posting insights and building visibility on LinkedIn.
-          </p>
-        </div>
-      </div>
-
-      {/* How It Works */}
-      <div className="py-24 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl font-semibold text-center mb-16">
-            From payment to posting — you only touch it once per month
-          </h2>
-
-          <div className="space-y-16">
-            {[
-              { num: "01", title: "Pay monthly", desc: "Choose Core ($1,999), Growth ($2,799) or Premium ($3,999)." },
-              { num: "02", title: "15-minute onboarding questionnaire", desc: "Share your commodities, origins, edge, target counterparties and tone." },
-              { num: "03", title: "I write your full month of posts", desc: "Authentic physical trader voice — no generic content." },
-              { num: "04", title: "One batch review", desc: "Review and edit everything in 15–25 minutes." },
-              { num: "05", title: "I schedule in PostBridge", desc: "I manually upload and schedule all approved posts." },
-              { num: "06", title: "Posts go live automatically", desc: "One per trading day — zero daily work from you." },
-              { num: "07", title: "Monthly cycle continues", desc: "Short new wins update → new batch → one review → schedule." },
-            ].map((step) => (
-              <div key={step.num} className="flex gap-8 items-start">
-                <div className="font-mono text-5xl font-bold text-emerald-700 shrink-0">{step.num}</div>
-                <div>
-                  <h3 className="text-2xl font-semibold">{step.title}</h3>
-                  <p className="mt-3 text-lg text-gray-600">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Pricing */}
-      <div id="pricing" className="bg-gray-50 py-24">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-4xl font-semibold text-center mb-4">Simple, transparent pricing</h2>
-          <p className="text-center text-gray-600 mb-12">Cancel anytime with 30 days notice</p>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {/* Core */}
-            <div className="bg-white border border-gray-200 rounded-3xl p-10">
-              <h3 className="text-3xl font-semibold">Core</h3>
-              <div className="mt-6">
-                <span className="text-6xl font-bold">$1,999</span>
-                <span className="text-xl text-gray-500">/month</span>
-              </div>
-              <p className="mt-2 text-gray-600">20 posts per month</p>
-
-              <ul className="mt-10 space-y-4 text-gray-700">
-                <li>✓ 20 tailored posts</li>
-                <li>✓ One monthly batch review</li>
-                <li>✓ Scheduling in PostBridge</li>
-                <li>✓ Basic performance snapshot</li>
-              </ul>
-
-              <button
-                onClick={() => handlePayment('core', 1999, 'Core Plan')}
-                disabled={loading === 'core'}
-                className="mt-12 w-full bg-gray-900 hover:bg-black disabled:bg-gray-400 text-white py-4 rounded-2xl font-semibold transition"
-              >
-                {loading === 'core' ? 'Processing...' : 'Select Core'}
-              </button>
-            </div>
-
-            {/* Growth - Most Popular */}
-            <div className="bg-white border-2 border-emerald-700 rounded-3xl p-10 relative scale-[1.02]">
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-emerald-700 text-white px-6 py-1 rounded-full text-sm font-medium">
-                MOST POPULAR
-              </div>
-              <h3 className="text-3xl font-semibold">Growth</h3>
-              <div className="mt-6">
-                <span className="text-6xl font-bold">$2,799</span>
-                <span className="text-xl text-gray-500">/month</span>
-              </div>
-              <p className="mt-2 text-gray-600">30 posts per month</p>
-
-              <ul className="mt-10 space-y-4 text-gray-700">
-                <li>✓ 30 tailored posts</li>
-                <li>✓ One monthly batch review</li>
-                <li>✓ Deeper performance report</li>
-                <li>✓ Short strategy voice note option</li>
-              </ul>
-
-              <button
-                onClick={() => handlePayment('growth', 2799, 'Growth Plan')}
-                disabled={loading === 'growth'}
-                className="mt-12 w-full bg-emerald-700 hover:bg-emerald-800 disabled:bg-emerald-600 text-white py-4 rounded-2xl font-semibold transition"
-              >
-                {loading === 'growth' ? 'Processing...' : 'Select Growth'}
-              </button>
-            </div>
-
-            {/* Premium */}
-            <div className="bg-white border border-gray-200 rounded-3xl p-10">
-              <h3 className="text-3xl font-semibold">Premium</h3>
-              <div className="mt-6">
-                <span className="text-6xl font-bold">$3,999</span>
-                <span className="text-xl text-gray-500">/month</span>
-              </div>
-              <p className="mt-2 text-gray-600">30+ posts per month</p>
-
-              <ul className="mt-10 space-y-4 text-gray-700">
-                <li>✓ 30+ tailored posts</li>
-                <li>✓ Profile optimization</li>
-                <li>✓ Priority revisions & support</li>
-              </ul>
-
-              <button
-                onClick={() => handlePayment('premium', 3999, 'Premium Plan')}
-                disabled={loading === 'premium'}
-                className="mt-12 w-full bg-gray-900 hover:bg-black disabled:bg-gray-400 text-white py-4 rounded-2xl font-semibold transition"
-              >
-                {loading === 'premium' ? 'Processing...' : 'Select Premium'}
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <div className="py-16 text-center border-t border-gray-200">
-        <p className="text-gray-600">
-          Built and managed by Phil — Active physical agricultural commodity trader at Stone Peak Trading
-        </p>
-        <p className="text-sm text-gray-500 mt-4">
-          © 2026 Stone Peak Trading. All rights reserved.
-        </p>
-      </div>
-
-      {/* Lenco Payment Widget Script */}
-      <script
-        src="https://pay.lenco.co/js/v1/inline.js"
-        async
-      />
+      <a href="#pricing" class="font-medium hover:text-emerald-700">Pricing</a>
     </div>
-  );
-}
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero-bg text-white py-28">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h1 class="text-6xl md:text-7xl font-bold tracking-tighter leading-tight">
+        LinkedIn for Physical<br>Commodity Traders
+      </h1>
+      <p class="mt-8 text-2xl md:text-3xl max-w-3xl mx-auto opacity-90">
+        Authentic posts written by a fellow physical trader.<br>
+        One 15-minute batch review per month. No daily work.
+      </p>
+      <div class="mt-12">
+        <a href="#pricing" 
+           class="inline-block bg-white text-emerald-700 font-semibold text-xl px-12 py-5 rounded-2xl hover:bg-emerald-50 transition">
+          Choose Your Plan
+        </a>
+      </div>
+      <p class="mt-8 text-sm opacity-75">
+        Built exclusively for active physical traders in maize, soy, sesame, wheat, cashew, fertilizer & more
+      </p>
+    </div>
+  </div>
+
+  <!-- Problem -->
+  <div class="py-20 bg-white">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-4xl font-semibold">You trade physicals.<br>Not LinkedIn posts.</h2>
+      <p class="mt-10 text-xl text-zinc-600">
+        While you're negotiating deals, managing freight, basis risk and vessel nominations, 
+        other traders are winning new counterparties and mandates by staying visible on LinkedIn.
+      </p>
+    </div>
+  </div>
+
+  <!-- How It Works -->
+  <div class="py-24 bg-zinc-50">
+    <div class="max-w-5xl mx-auto px-6">
+      <h2 class="text-4xl font-semibold text-center mb-16">From payment to posting — only one touch per month</h2>
+      
+      <div class="grid md:grid-cols-2 gap-x-16 gap-y-14">
+        <div class="flex gap-6">
+          <div class="text-5xl font-bold text-emerald-700 font-mono">01</div>
+          <div>
+            <h3 class="text-2xl font-semibold">Pay monthly via Lenco</h3>
+            <p class="mt-3 text-zinc-600">Choose Core ($1,999), Growth ($2,799) or Premium ($3,999).</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="text-5xl font-bold text-emerald-700 font-mono">02</div>
+          <div>
+            <h3 class="text-2xl font-semibold">15-minute onboarding</h3>
+            <p class="mt-3 text-zinc-600">Share your commodities, origins, edge and preferred tone.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="text-5xl font-bold text-emerald-700 font-mono">03</div>
+          <div>
+            <h3 class="text-2xl font-semibold">I write your posts</h3>
+            <p class="mt-3 text-zinc-600">Real physical trader voice — market insights, execution stories, basis & freight.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="text-5xl font-bold text-emerald-700 font-mono">04</div>
+          <div>
+            <h3 class="text-2xl font-semibold">One batch review</h3>
+            <p class="mt-3 text-zinc-600">Review & edit the full month in 15–25 minutes.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="text-5xl font-bold text-emerald-700 font-mono">05</div>
+          <div>
+            <h3 class="text-2xl font-semibold">I schedule in PostBridge</h3>
+            <p class="mt-3 text-zinc-600">I manually upload and schedule everything.</p>
+          </div>
+        </div>
+        <div class="flex gap-6">
+          <div class="text-5xl font-bold text-emerald-700 font-mono">06</div>
+          <div>
+            <h3 class="text-2xl font-semibold">Posts go live automatically</h3>
+            <p class="mt-3 text-zinc-600">One per trading day — zero daily work from you.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing -->
+  <div id="pricing" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-semibold">Choose Your Plan</h2>
+        <p class="mt-4 text-zinc-600">Cancel anytime with 30 days notice</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Core -->
+        <div class="border border-zinc-200 rounded-3xl p-10">
+          <h3 class="text-3xl font-semibold">Core</h3>
+          <div class="mt-6">
+            <span class="text-6xl font-bold">$1,999</span>
+            <span class="text-xl text-zinc-500">/month</span>
+          </div>
+          <p class="mt-2 text-zinc-600">20 posts per month</p>
+          <ul class="mt-10 space-y-4 text-zinc-700">
+            <li>✓ 20 tailored posts</li>
+            <li>✓ One batch review</li>
+            <li>✓ Scheduling in PostBridge</li>
+            <li>✓ Basic performance snapshot</li>
+          </ul>
+          <button onclick="pay('core', 1999, 'Core Plan')" 
+                  class="mt-12 w-full py-4 bg-zinc-900 text-white rounded-2xl font-semibold hover:bg-black transition">
+            Select Core
+          </button>
+        </div>
+
+        <!-- Growth -->
+        <div class="border-2 border-emerald-700 rounded-3xl p-10 relative">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-emerald-700 text-white text-xs font-medium px-6 py-1.5 rounded-full">
+            MOST POPULAR
+          </div>
+          <h3 class="text-3xl font-semibold">Growth</h3>
+          <div class="mt-6">
+            <span class="text-6xl font-bold">$2,799</span>
+            <span class="text-xl text-zinc-500">/month</span>
+          </div>
+          <p class="mt-2 text-zinc-600">30 posts per month</p>
+          <ul class="mt-10 space-y-4 text-zinc-700">
+            <li>✓ 30 tailored posts</li>
+            <li>✓ One batch review</li>
+            <li>✓ Deeper performance report</li>
+            <li>✓ Strategy voice note option</li>
+          </ul>
+          <button onclick="pay('growth', 2799, 'Growth Plan')" 
+                  class="mt-12 w-full py-4 bg-emerald-700 text-white rounded-2xl font-semibold hover:bg-emerald-800 transition">
+            Select Growth
+          </button>
+        </div>
+
+        <!-- Premium -->
+        <div class="border border-zinc-200 rounded-3xl p-10">
+          <h3 class="text-3xl font-semibold">Premium</h3>
+          <div class="mt-6">
+            <span class="text-6xl font-bold">$3,999</span>
+            <span class="text-xl text-zinc-500">/month</span>
+          </div>
+          <p class="mt-2 text-zinc-600">30+ posts per month</p>
+          <ul class="mt-10 space-y-4 text-zinc-700">
+            <li>✓ 30+ tailored posts</li>
+            <li>✓ Profile optimization</li>
+            <li>✓ Priority revisions</li>
+            <li>✓ Monthly strategy support</li>
+          </ul>
+          <button onclick="pay('premium', 3999, 'Premium Plan')" 
+                  class="mt-12 w-full py-4 bg-zinc-900 text-white rounded-2xl font-semibold hover:bg-black transition">
+            Select Premium
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-zinc-900 text-zinc-400 py-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <p>Built and personally managed by Phil — Active physical agricultural commodity trader at Stone Peak Trading</p>
+      <p class="mt-6 text-sm">© 2026 Stone Peak Trading. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Lenco Payment Script -->
+  <script src="https://pay.lenco.co/js/v1/inline.js"></script>
+  <script>
+    function pay(tier, amount, planName) {
+      const publicKey = 'pub-b279cea59e68bf274a5a3d60cf5c8ab090cc7cdc0a270a20';
+
+      if (typeof LencoPay === 'undefined') {
+        alert('Payment widget is still loading. Please refresh the page.');
+        return;
+      }
+
+      LencoPay.getPaid({
+        key: publicKey,
+        reference: `sp-\( {tier}- \){Date.now()}`,
+        email: '',
+        amount: amount,
+        currency: 'USD',
+        channels: ['card', 'mobile-money'],
+        metadata: { plan: tier, planName: planName },
+        onSuccess: function(response) {
+          alert(`Payment successful! Reference: ${response.reference}`);
+          window.location.href = `success.html?reference=\( {response.reference}&plan= \){tier}`;
+        },
+        onClose: function() {
+          alert('Payment cancelled.');
+        },
+        onConfirmationPending: function() {
+          alert('Payment pending confirmation. We will notify you shortly.');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
