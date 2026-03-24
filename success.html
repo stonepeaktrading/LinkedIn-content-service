@@ -24,11 +24,11 @@
         <ol class="space-y-4">
           <li class="flex gap-3">
             <span class="font-bold text-emerald-700">1.</span>
-            <span><strong>Authorize LinkedIn access</strong> – Click the link below to grant posting permission. It’s a one‑time OAuth connection (takes 30 seconds, no passwords shared).</span>
+            <span><strong>Fill out the onboarding form</strong> – This tells me everything I need: commodities, origins, trading style, and your preferred communication (email or WhatsApp).</span>
           </li>
           <li class="flex gap-3">
             <span class="font-bold text-emerald-700">2.</span>
-            <span><strong>Fill out the onboarding form</strong> – This tells me everything I need: commodities, origins, trading style, and your preferred communication (email or WhatsApp).</span>
+            <span><strong>LinkedIn access</strong> – After you complete the form, I'll reach out via your preferred communication to finalize the one‑time LinkedIn authorization (it's quick and secure).</span>
           </li>
           <li class="flex gap-3">
             <span class="font-bold text-emerald-700">3.</span>
@@ -36,21 +36,20 @@
           </li>
         </ol>
         <p class="mt-4 text-sm text-emerald-700 bg-white p-2 rounded text-center">
-          <i class="fas fa-info-circle mr-1"></i> After completing the form, you can close this page. Both steps are required before I can start.
+          <i class="fas fa-info-circle mr-1"></i> I'll personally contact you to set up the LinkedIn connection. No extra work on your side.
         </p>
       </div>
 
       <div class="space-y-4">
-        <!-- LinkedIn OAuth first (quicker) -->
-        <a href="YOUR_POSTBRIDGE_OAUTH_URL" target="_blank"
-           class="inline-block w-full bg-zinc-800 text-white font-semibold py-4 rounded-xl hover:bg-zinc-900 transition">
-          <i class="fab fa-linkedin mr-2"></i> Authorize LinkedIn Access (One Time)
-        </a>
         <!-- Google Form link -->
         <a href="https://forms.gle/ebaEx3D27iDDPsa1A" target="_blank"
            class="inline-block w-full bg-emerald-700 text-white font-semibold py-4 rounded-xl hover:bg-emerald-800 transition">
           <i class="fas fa-file-alt mr-2"></i> Complete Onboarding Form
         </a>
+        <!-- Placeholder for future OAuth button, currently replaced with message -->
+        <div class="w-full bg-zinc-100 text-zinc-500 font-semibold py-4 rounded-xl text-center border border-zinc-200">
+          <i class="fab fa-linkedin mr-2"></i> LinkedIn setup will be handled by Phil after form submission
+        </div>
       </div>
 
       <p class="text-sm text-zinc-500 mt-8">
@@ -60,7 +59,6 @@
   </div>
 
   <script>
-    // Parse URL parameters to display the selected plan
     const urlParams = new URLSearchParams(window.location.search);
     const plan = urlParams.get('plan');
     const email = urlParams.get('email');
@@ -70,16 +68,11 @@
       if (plan === 'core') planDisplay = 'Core Plan';
       else if (plan === 'growth') planDisplay = 'Growth Plan';
       else if (plan === 'premium') planDisplay = 'Premium Plan';
-      
       if (planDisplay) {
-        const msgElement = document.getElementById('planMessage');
-        msgElement.innerHTML = `You're now signed up for the <strong>${planDisplay}</strong>. I'll get your LinkedIn presence working for you.`;
+        document.getElementById('planMessage').innerHTML = `You're now signed up for the <strong>${planDisplay}</strong>. I'll get your LinkedIn presence working for you.`;
       }
     }
-
-    if (email) {
-      console.log('Client email (from payment):', email);
-    }
+    if (email) console.log('Client email:', email);
   </script>
 </body>
 </html>
