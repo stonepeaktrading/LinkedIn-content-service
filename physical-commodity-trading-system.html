@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Physical Commodity Trading System — Stone Peak Trading</title>
+  <script src="https://pay.lenco.co/js/v1/inline.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c12;
+    --bg-2: #0d1420;
+    --bg-3: #111927;
+    --border: rgba(180, 155, 100, 0.15);
+    --gold: #c9a84c;
+    --gold-light: #e8c97a;
+    --gold-dim: rgba(201, 168, 76, 0.3);
+    --text: #e8e2d6;
+    --text-dim: #8a8070;
+    --text-mid: #b8b0a0;
+    --white: #f5f2ed;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(8, 12, 18, 0.95);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+
+  .nav-cta {
+    color: var(--gold) !important;
+    border: 1px solid var(--gold-dim);
+    padding: 8px 20px;
+    transition: all 0.3s ease !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-dim) !important; }
+
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--gold);
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 61px; left: 0; right: 0;
+    background: var(--bg-2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    z-index: 99;
+    flex-direction: column;
+  }
+
+  .mobile-menu.active { display: flex; }
+
+  .mobile-menu a {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    text-decoration: none;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:last-child { border-bottom: none; }
+  .mobile-menu a:hover { color: var(--gold); }
+
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 140px 48px 100px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-tag {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(42px, 6vw, 80px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 48px;
+    max-width: 800px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.4s forwards;
+  }
+
+  .hero-headline em { font-style: italic; color: var(--gold-light); }
+
+  .hero-body {
+    max-width: 620px;
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.9;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+  }
+
+  .hero-body p { margin-bottom: 20px; }
+  .hero-body p:last-child { margin-bottom: 0; }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 48px 0;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.8s forwards;
+  }
+
+  .hero-closing {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--gold-light);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 1s forwards;
+  }
+
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 100px 48px;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 56px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 200px;
+  }
+
+  .changes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .change-item {
+    background: var(--bg);
+    padding: 48px;
+    transition: background 0.3s ease;
+  }
+
+  .change-item:hover { background: var(--bg-2); }
+
+  .change-number {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .change-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .change-body { font-size: 13px; color: var(--text-mid); line-height: 1.85; }
+
+  .inside-list { display: flex; flex-direction: column; }
+
+  .inside-item {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    border-bottom: 1px solid var(--border);
+    padding: 40px 0;
+    transition: all 0.3s ease;
+  }
+
+  .inside-item:first-child { border-top: 1px solid var(--border); }
+  .inside-item:hover .inside-title { color: var(--gold-light); }
+
+  .inside-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    padding-right: 48px;
+    transition: color 0.3s ease;
+    line-height: 1.3;
+  }
+
+  .inside-body { font-size: 13px; color: var(--text-mid); line-height: 1.85; }
+
+  .who-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+
+  .who-block { background: var(--bg); padding: 56px 48px; }
+
+  .who-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 32px;
+  }
+
+  .who-block-title.not { color: var(--text-dim); }
+
+  .who-list { list-style: none; }
+
+  .who-list li {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.85;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .who-list li::before { content: '—'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+  .who-list.not li::before { color: var(--text-dim); }
+
+  /* Plans */
+  .plans-stack { display: flex; flex-direction: column; gap: 2px; margin-top: 48px; }
+
+  .plan-row {
+    display: grid;
+    grid-template-columns: 220px 1fr auto;
+    align-items: center;
+    gap: 40px;
+    background: var(--bg-2);
+    padding: 32px 40px;
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .plan-row:hover { background: var(--bg-3); border-left-color: var(--gold-dim); }
+  .plan-row.featured { border-left-color: var(--gold); background: var(--bg-3); }
+
+  .plan-row-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .plan-row-badge {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .plan-row-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold-light);
+  }
+
+  .plan-row-price span {
+    font-size: 13px;
+    color: var(--text-dim);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .plan-row-detail { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .plan-row-savings {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: right;
+  }
+
+  .plan-savings-highlight {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gold-light);
+  }
+
+  .plan-savings-sub { font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; }
+
+  .plan-row-btn {
+    background: transparent;
+    border: 1px solid var(--gold-dim);
+    padding: 12px 28px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .plan-row-btn:hover, .plan-row.featured .plan-row-btn {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+  }
+
+  .plans-note {
+    margin-top: 32px;
+    font-size: 12px;
+    color: var(--text-dim);
+    line-height: 1.9;
+    border-left: 2px solid var(--gold-dim);
+    padding-left: 24px;
+  }
+
+  /* Playbooks */
+  .playbooks-wrap {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    padding: 64px;
+  }
+
+  .playbooks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 56px;
+    gap: 48px;
+  }
+
+  .playbooks-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.1;
+    max-width: 480px;
+  }
+
+  .playbooks-title em { font-style: italic; color: var(--gold-light); }
+
+  .playbooks-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.85;
+    max-width: 360px;
+    padding-top: 8px;
+  }
+
+  .stages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin-bottom: 48px;
+  }
+
+  .stage-item {
+    background: var(--bg);
+    padding: 32px;
+    transition: background 0.3s ease;
+  }
+
+  .stage-item:hover { background: var(--bg-3); }
+
+  .stage-num { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 12px; }
+
+  .stage-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  .stage-desc { font-size: 12px; color: var(--text-dim); line-height: 1.7; }
+
+  .playbooks-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .playbooks-footer-text { font-size: 13px; color: var(--text-mid); line-height: 1.8; max-width: 560px; }
+
+  .waitlist-form { display: flex; flex-shrink: 0; }
+
+  .waitlist-input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-right: none;
+    padding: 14px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    width: 240px;
+  }
+
+  .waitlist-input::placeholder { color: var(--text-dim); }
+  .waitlist-input:focus { border-color: var(--gold-dim); }
+
+  .waitlist-btn {
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+    padding: 14px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .waitlist-btn:hover { background: rgba(201, 168, 76, 0.5); }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .about-title {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+  }
+
+  .about-stat { padding: 20px 0; border-top: 1px solid var(--border); }
+
+  .about-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .about-stat-label { font-size: 11px; letter-spacing: 0.1em; color: var(--text-dim); text-transform: uppercase; }
+
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1.4;
+    border-left: 2px solid var(--gold);
+    padding-left: 32px;
+    margin: 0 0 40px;
+  }
+
+  .about-body { font-size: 14px; color: var(--text-mid); line-height: 1.95; }
+  .about-body p { margin-bottom: 24px; }
+  .about-body p:last-child { margin-bottom: 0; }
+
+  /* Get Started */
+  .get-started-wrap {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    padding: 72px 64px;
+    text-align: center;
+  }
+
+  .get-started-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.1;
+  }
+
+  .get-started-title em { font-style: italic; color: var(--gold-light); }
+
+  .get-started-sub {
+    font-size: 13px;
+    color: var(--text-mid);
+    max-width: 500px;
+    margin: 0 auto 56px;
+    line-height: 1.85;
+  }
+
+  .checkout-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+    max-width: 900px;
+    margin: 0 auto 24px;
+  }
+
+  .checkout-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 28px 16px;
+    background: var(--bg-3);
+    border: none;
+    color: var(--gold);
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .checkout-btn:hover { background: var(--bg); }
+  .checkout-btn.featured { background: var(--bg); border-top: 2px solid var(--gold); }
+
+  .checkout-btn-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .checkout-btn-name { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+  .checkout-btn-saving { font-size: 11px; color: var(--gold); letter-spacing: 0.05em; }
+
+  .get-started-dm {
+    font-size: 12px;
+    color: var(--text-dim);
+    margin-top: 24px;
+    line-height: 1.7;
+  }
+
+  .get-started-dm a { color: var(--gold); text-decoration: none; border-bottom: 1px solid var(--gold-dim); transition: border-color 0.2s; }
+  .get-started-dm a:hover { border-color: var(--gold); }
+
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .footer-text { font-size: 11px; color: var(--text-dim); letter-spacing: 0.08em; }
+
+  /* Modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8, 12, 18, 0.95);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .modal-overlay.active { display: flex; }
+
+  .modal {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    padding: 56px;
+    max-width: 560px;
+    width: 100%;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 24px; right: 24px;
+    background: none; border: none;
+    color: var(--text-dim);
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--gold); }
+
+  .modal-plan-name {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .modal-saving {
+    font-size: 12px;
+    color: var(--gold);
+    margin-bottom: 40px;
+    letter-spacing: 0.08em;
+  }
+
+  .form-field { margin-bottom: 24px; }
+
+  .form-label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 14px 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+  }
+
+  .form-input:focus, .form-select:focus { border-color: var(--gold-dim); }
+  .form-input::placeholder { color: var(--text-dim); }
+  .form-select option { background: var(--bg-2); }
+
+  .form-submit {
+    width: 100%;
+    background: var(--gold-dim);
+    border: 1px solid var(--gold);
+    padding: 18px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 8px;
+  }
+
+  .form-submit:hover { background: rgba(201, 168, 76, 0.5); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .nav-toggle { display: block; }
+    .hero { padding: 96px 24px 64px; }
+    section { padding: 48px 24px; }
+    .changes-grid { grid-template-columns: 1fr; }
+    .who-grid { grid-template-columns: 1fr; }
+    .plan-row { grid-template-columns: 1fr; gap: 16px; }
+    .plan-row-savings { text-align: left; }
+    .checkout-buttons { grid-template-columns: 1fr 1fr; }
+    .inside-item { grid-template-columns: 1fr; gap: 12px; }
+    .inside-title { padding-right: 0; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .playbooks-header { flex-direction: column; }
+    .stages-grid { grid-template-columns: 1fr 1fr; }
+    .playbooks-footer { flex-direction: column; }
+    .waitlist-form { width: 100%; }
+    .waitlist-input { flex: 1; min-width: 0; }
+    .playbooks-wrap { padding: 40px 24px; }
+    .get-started-wrap { padding: 48px 24px; }
+    .modal { padding: 40px 24px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .checkout-buttons { grid-template-columns: 1fr; }
+    .stages-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">Stone Peak Trading</a>
+  <ul class="nav-links">
+    <li><a href="trading.html">Trading</a></li>
+    <li><a href="consultancy.html">Consultancy</a></li>
+    <li><a href="physical-commodity-trading-system.html" class="active">Program</a></li>
+    <li><a href="playbooks.html">Playbooks</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="#get-started" class="nav-cta">Enrol Now</a></li>
+  </ul>
+  <button class="nav-toggle" id="nav-toggle">☰</button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="trading.html">Trading</a>
+  <a href="consultancy.html">Consultancy</a>
+  <a href="physical-commodity-trading-system.html">Program</a>
+  <a href="playbooks.html">Playbooks</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+  <a href="#get-started">Enrol Now</a>
+</div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-tag">The Physical Commodity Trading System &mdash; 12-Month Private Program</div>
+  <h1 class="hero-headline">Most commodity traders don't have a deal flow problem. They have a <em>system</em> problem.</h1>
+  <div class="hero-divider"></div>
+  <div class="hero-body">
+    <p>The market has deals. There are buyers who need product and sellers who need offtakers every single day. The problem is that without a system, you only access a fraction of what's available — and that fraction depends on who you happen to know, who picks up the phone, and whether your one or two reliable counterparties are active this month.</p>
+    <p>When they're not, your pipeline stops. You spend weeks chasing leads that go nowhere. You find a deal worth doing but can't finance it. You close one good trade and spend the next month trying to repeat it with no clear idea of how you did it the first time.</p>
+    <p>That's not bad luck. That's what trading without a system looks like.</p>
+  </div>
+  <div class="hero-divider"></div>
+  <div class="hero-closing">12 months from now, your pipeline runs on a system — not on luck, timing, or who happens to pick up the phone.</div>
+</div>
+
+<!-- What Changes -->
+<section>
+  <div class="section-label">What changes in 12 months</div>
+  <div class="changes-grid">
+    <div class="change-item">
+      <div class="change-number">01</div>
+      <div class="change-title">You stop relying on the same two counterparties</div>
+      <div class="change-body">We plug you directly into our active network of buyers, sellers and offtakers across your commodity markets. Deals come to you. At the same time you build and own your own relationships — so your pipeline is never dependent on any single person, network or circumstance.</div>
+    </div>
+    <div class="change-item">
+      <div class="change-number">02</div>
+      <div class="change-title">You get access to trade finance most traders never find</div>
+      <div class="change-body">This is where deals die for most traders. Capital requirements, bank relationships, documentation — it stops deals before they start. We connect you to our trade finance partners who fund on profit share or revenue percentage. No upfront capital required. Deals that were previously out of reach become executable.</div>
+    </div>
+    <div class="change-item">
+      <div class="change-number">03</div>
+      <div class="change-title">Every deal follows the same process</div>
+      <div class="change-body">From first conversation to signed contract to execution and settlement. You stop figuring it out from scratch on every trade and start building a system that gets sharper with every deal you close.</div>
+    </div>
+    <div class="change-item">
+      <div class="change-number">04</div>
+      <div class="change-title">You learn to filter deals before you commit</div>
+      <div class="change-body">Most trading losses start with a bad decision at the entry point. You develop the ability to assess what makes a deal worth doing and what makes it dangerous — before your capital and reputation are on the line.</div>
+    </div>
+  </div>
+</section>
+
+<!-- What's Inside -->
+<section>
+  <div class="section-label">What's inside</div>
+  <div class="inside-list">
+    <div class="inside-item">
+      <div class="inside-title">Deals don't wait for scheduled calls</div>
+      <div class="inside-body">When something is moving you message directly — deal structure, contract review, counterparty assessment, risk flags. Responded to within 24 hours on trading days. Support that operates at market speed, not calendar speed.</div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-title">You never trade in isolation again</div>
+      <div class="inside-body">Once a month the full client group gets together. Current market intelligence, deals closed, live deal reviews, one focused teaching point. Every session the room gets sharper — and so do you.</div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-title">The complete playbook library from day one</div>
+      <div class="inside-body">Every stage of a physical commodity trade documented — sourcing, counterparty vetting, deal structure, logistics, trade finance, risk assessment, execution and pipeline management. Built from real trades. Available immediately.</div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-title">Your pipeline reviewed before problems become expensive</div>
+      <div class="inside-body">Every 90 days, your pipeline, margins and risk exposure are reviewed in detail. Patterns get identified and corrected before they cost you. Most clients say the quarterly audit alone is worth the program fee.</div>
+    </div>
+    <div class="inside-item">
+      <div class="inside-title">A room of serious traders, not a forum</div>
+      <div class="inside-body">A small, vetted group of active traders sharing market intelligence, live opportunities and hard-won experience. Enrollment is reviewed. Entry is not automatic. The quality of the room is protected.</div>
+    </div>
+  </div>
+</section>
+
+<!-- Who -->
+<section>
+  <div class="section-label">Who this is for</div>
+  <div class="who-grid">
+    <div class="who-block">
+      <div class="who-block-title">This program is for you</div>
+      <ul class="who-list">
+        <li>You are a physical commodity trader — maize, wheat, soybeans, peanuts, beans and pulses, cashew nuts, sugar, fertilizer</li>
+        <li>You are in the market or ready to enter it seriously</li>
+        <li>Your pipeline is inconsistent and your monthly profit reflects it</li>
+        <li>You want a system that generates consistent deal flow, gives you access to real buyers and sellers, and connects you to trade finance that most traders never find</li>
+        <li>You are prepared to engage, implement and do the work</li>
+      </ul>
+    </div>
+    <div class="who-block">
+      <div class="who-block-title not">This program is not for you</div>
+      <ul class="who-list not">
+        <li>You have no interest in physical commodity trading and are looking for a speculative or paper trading strategy</li>
+        <li>You want a shortcut that doesn't involve doing the actual work</li>
+        <li>You are not willing to engage, implement and show up</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Your Plan -->
+<section>
+  <div class="section-label">Your plan</div>
+  <p style="font-size:14px; color:var(--text-mid); max-width:640px; line-height:1.85; margin-bottom:8px;">This program runs for 12 months. Enrollment is capped — the level of support delivered here is not possible at scale. The program, the access and the results are identical regardless of how you pay. The only difference is how much you save.</p>
+  <div class="plans-stack">
+    <div class="plan-row">
+      <div>
+        <div class="plan-row-name">12 Monthly Payments</div>
+        <div class="plan-row-detail">Total $12,000 &mdash; Full access from day one.</div>
+      </div>
+      <div>
+        <div class="plan-row-price">$1,000 <span>/ month</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+        <div class="plan-row-savings">
+          <div class="plan-savings-sub">Standard rate</div>
+        </div>
+        <button class="plan-row-btn" onclick="openModal('12 Monthly Payments', '$1,000 / month', 'Total $12,000', '')">Get Started</button>
+      </div>
+    </div>
+    <div class="plan-row">
+      <div>
+        <div class="plan-row-name">5 Monthly Payments</div>
+        <div class="plan-row-detail">Total $9,000 &mdash; Full access from day one.</div>
+      </div>
+      <div>
+        <div class="plan-row-price">$1,800 <span>/ month</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+        <div class="plan-row-savings">
+          <div class="plan-savings-highlight">Save $3,000</div>
+          <div class="plan-savings-sub">3 months free</div>
+        </div>
+        <button class="plan-row-btn" onclick="openModal('5 Monthly Payments', '$1,800 / month', 'Total $9,000', 'Save $3,000 — 3 months free')">Get Started</button>
+      </div>
+    </div>
+    <div class="plan-row">
+      <div>
+        <div class="plan-row-name">3 Monthly Payments</div>
+        <div class="plan-row-detail">Total $7,500 &mdash; Full access from day one.</div>
+      </div>
+      <div>
+        <div class="plan-row-price">$2,500 <span>/ month</span></div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+        <div class="plan-row-savings">
+          <div class="plan-savings-highlight">Save $4,500</div>
+          <div class="plan-savings-sub">4.5 months free</div>
+        </div>
+        <button class="plan-row-btn" onclick="openModal('3 Monthly Payments', '$2,500 / month', 'Total $7,500', 'Save $4,500 — 4.5 months free')">Get Started</button>
+      </div>
+    </div>
+    <div class="plan-row featured">
+      <div>
+        <div class="plan-row-badge">Best value — most popular</div>
+        <div class="plan-row-name">Paid in Full</div>
+        <div class="plan-row-detail">One payment. Full access from day one. The single smartest financial decision you can make.</div>
+      </div>
+      <div>
+        <div class="plan-row-price">$6,000</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px;">
+        <div class="plan-row-savings">
+          <div class="plan-savings-highlight">Save $6,000</div>
+          <div class="plan-savings-sub">6 months free</div>
+        </div>
+        <button class="plan-row-btn" onclick="openModal('Paid in Full', '$6,000', 'Single payment', 'Save $6,000 — 6 months free')">Get Started</button>
+      </div>
+    </div>
+  </div>
+  <div class="plans-note">
+    Every payment plan carries a 60-day window to convert to paid in full at $6,000 — saving you up to $6,000 and getting you 6 months free. Ready to convert? DM Phil directly and the difference is credited back immediately. When spots are filled, enrollment closes. There is no waitlist.
+  </div>
+</section>
+
+<!-- About -->
+<section>
+  <div class="section-label">About Stone Peak Trading</div>
+  <div class="about-grid">
+    <div>
+      <div class="about-name">Stone Peak Trading</div>
+      <div class="about-title">Founded by Phillip Tembo</div>
+      <div class="about-stat">
+        <div class="about-stat-num">10</div>
+        <div class="about-stat-label">Years active trading</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">4th</div>
+        <div class="about-stat-label">Generation trader</div>
+      </div>
+      <div class="about-stat">
+        <div class="about-stat-num">8+</div>
+        <div class="about-stat-label">Commodity markets</div>
+      </div>
+    </div>
+    <div>
+      <div class="about-quote">"Four generations of trading knowledge distilled into one system."</div>
+      <div class="about-body">
+        <p>Stone Peak Trading is a Zambia-based physical commodity trading company founded by a fourth-generation trader with a decade of active market experience across maize, wheat, soybeans, peanuts, beans and pulses, cashew nuts, sugar and fertilizer markets globally.</p>
+        <p>The buyer and seller network, the trade finance partnerships, the deal structure frameworks inside this program are not concepts borrowed from elsewhere. They are the infrastructure we built and trade through every day.</p>
+        <p>This is not consulting from the outside. We are in the market with you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Get Started -->
+<section id="get-started">
+  <div class="get-started-wrap">
+    <div class="get-started-title">Ready to build your<br><em>trading operation?</em></div>
+    <div class="get-started-sub">Spots are limited and every enrollment is reviewed personally by Phil. Select your plan, complete your details, and receive confirmation and onboarding within 48 hours.</div>
+    <div class="checkout-buttons">
+      <button class="checkout-btn" onclick="openModal('12 Monthly Payments', '$1,000 / month', 'Total $12,000', '')">
+        <div class="checkout-btn-price">$1,000</div>
+        <div class="checkout-btn-name">12 Monthly Payments</div>
+        <div class="checkout-btn-saving">Standard rate</div>
+      </button>
+      <button class="checkout-btn" onclick="openModal('5 Monthly Payments', '$1,800 / month', 'Total $9,000', 'Save $3,000 — 3 months free')">
+        <div class="checkout-btn-price">$1,800</div>
+        <div class="checkout-btn-name">5 Monthly Payments</div>
+        <div class="checkout-btn-saving">Save $3,000 &mdash; 3 months free</div>
+      </button>
+      <button class="checkout-btn" onclick="openModal('3 Monthly Payments', '$2,500 / month', 'Total $7,500', 'Save $4,500 — 4.5 months free')">
+        <div class="checkout-btn-price">$2,500</div>
+        <div class="checkout-btn-name">3 Monthly Payments</div>
+        <div class="checkout-btn-saving">Save $4,500 &mdash; 4.5 months free</div>
+      </button>
+      <button class="checkout-btn featured" onclick="openModal('Paid in Full', '$6,000', 'Single payment', 'Save $6,000 — 6 months free')">
+        <div class="checkout-btn-price">$6,000</div>
+        <div class="checkout-btn-name">Paid in Full</div>
+        <div class="checkout-btn-saving">Save $6,000 &mdash; 6 months free</div>
+      </button>
+    </div>
+    <div class="get-started-dm">Already enrolled on a payment plan and ready to convert to paid in full? <a href="https://wa.me/260973789333">WhatsApp Phil directly.</a></div>
+  </div>
+</section>
+
+<!-- Playbooks -->
+<section>
+  <div class="playbooks-wrap">
+    <div class="playbooks-header">
+      <div class="playbooks-title">The Stone Peak Trading<br><em>Playbook Library</em><br>— Coming Soon</div>
+      <div class="playbooks-desc">A complete library of physical commodity trading playbooks written by an active trader and built from real trades. Every stage of the trading journey documented — from understanding how physical markets work to sourcing, deal structure, trade finance, risk management and building a repeatable pipeline.</div>
+    </div>
+    <div class="stages-grid">
+      <div class="stage-item">
+        <div class="stage-num">Stage 01</div>
+        <div class="stage-title">Understanding the Market</div>
+        <div class="stage-desc">How the physical commodity market is structured, who the players are, and how price is formed.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 02</div>
+        <div class="stage-title">Sourcing</div>
+        <div class="stage-desc">How to find, approach and build a reliable supply network that survives between seasons.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 03</div>
+        <div class="stage-title">Finding Buyers</div>
+        <div class="stage-desc">Who buys physical commodities, how to approach them, and how to build long term relationships.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 04</div>
+        <div class="stage-title">Deal Structure</div>
+        <div class="stage-desc">How to put a physical commodity deal together from first conversation to signed contract.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 05</div>
+        <div class="stage-title">Logistics</div>
+        <div class="stage-desc">How commodities move, how freight is priced, and how to manage warehousing and storage.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 06</div>
+        <div class="stage-title">Trade Finance</div>
+        <div class="stage-desc">Why deals die at finance, what options exist for traders, and how to access them.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 07</div>
+        <div class="stage-title">Risk Management</div>
+        <div class="stage-desc">How to assess a deal before committing and how to protect your position when things move against you.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 08</div>
+        <div class="stage-title">Execution</div>
+        <div class="stage-desc">Managing a live deal from contract to delivery, coordinating documentation, logistics and payment.</div>
+      </div>
+      <div class="stage-item">
+        <div class="stage-num">Stage 09</div>
+        <div class="stage-title">Building a Trading Operation</div>
+        <div class="stage-desc">Going from one-off deals to a repeatable monthly pipeline that compounds over time.</div>
+      </div>
+    </div>
+    <div class="playbooks-footer">
+      <div class="playbooks-footer-text">Every playbook is available individually. Buy by stage or own the complete collection. If you are in The Physical Commodity Trading System, the entire library is already yours — no extra cost, no exceptions. Join the waitlist for early access pricing when the first playbook drops.</div>
+      <div class="waitlist-form">
+        <input type="email" class="waitlist-input" placeholder="Your email address">
+        <button class="waitlist-btn">Join the Waitlist</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="border-top: 1px solid var(--border); padding: 28px 48px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px;">
+  <a href="index.html" style="font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none;">Stone Peak Trading</a>
+  <ul style="display: flex; gap: 20px; list-style: none;">
+    <li><a href="trading.html" style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none;">Trading</a></li>
+    <li><a href="consultancy.html" style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none;">Consultancy</a></li>
+    <li><a href="physical-commodity-trading-system.html" style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-decoration: none;">Program</a></li>
+    <li><a href="playbooks.html" style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none;">Playbooks</a></li>
+    <li><a href="about.html" style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none;">About</a></li>
+    <li><a href="contact.html" style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none;">Contact</a></li>
+  </ul>
+  <div style="font-size: 10px; color: var(--text-dim); text-align: right;">&copy; 2026 Stone Peak Trading. All rights reserved.</div>
+</footer>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">&times;</button>
+    <div class="modal-plan-name" id="modal-plan-name"></div>
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-saving" id="modal-saving"></div>
+    <form onsubmit="handleSubmit(event)">
+      <div class="form-field">
+        <label class="form-label">Email Address</label>
+        <input type="email" id="customer-email" class="form-input" placeholder="Your email address" required>
+      </div>
+      <button type="submit" class="form-submit" id="submit-btn">Proceed to Checkout</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const LENCO_PUBLIC_KEY = 'pub-0d376f11e19bd726b3ec4f73a3ef0d7e2f6d33d8ddb9b2b6';
+
+  const PLAN_AMOUNTS = {
+    'Paid in Full': 6000,
+    '3 Monthly Payments': 2500,
+    '5 Monthly Payments': 1800,
+    '12 Monthly Payments': 1000
+  };
+
+  let currentPlan = '';
+
+  function openModal(planName, price, detail, saving) {
+    currentPlan = planName;
+    document.getElementById('modal-plan-name').textContent = planName;
+    document.getElementById('modal-title').textContent = price;
+    document.getElementById('modal-saving').textContent = saving;
+    document.getElementById('customer-email').value = '';
+    document.getElementById('submit-btn').textContent = 'Proceed to Checkout';
+    document.getElementById('submit-btn').disabled = false;
+    document.getElementById('modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('customer-email').value.trim();
+    if (!email) return;
+
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Loading payment...';
+    btn.disabled = true;
+    closeModal();
+
+    const amount = PLAN_AMOUNTS[currentPlan];
+    const reference = 'SPT-' + currentPlan.replace(/\s+/g, '-') + '-' + Date.now();
+
+    if (typeof LencoPay === 'undefined') {
+      alert('Payment system not ready. Please refresh the page and try again.');
+      btn.textContent = 'Proceed to Checkout';
+      btn.disabled = false;
+      return;
+    }
+
+    LencoPay.getPaid({
+      key: LENCO_PUBLIC_KEY,
+      reference: reference,
+      email: email,
+      amount: amount,
+      currency: 'USD',
+      channels: ['card', 'mobile-money'],
+      customer: { firstName: '', lastName: '', phone: '' },
+      onSuccess: function(response) {
+        window.location.href = 'onboarding.html?reference=' + response.reference + '&plan=' + encodeURIComponent(currentPlan) + '&email=' + encodeURIComponent(email);
+      },
+      onClose: function() {
+        btn.textContent = 'Proceed to Checkout';
+        btn.disabled = false;
+      },
+      onConfirmationPending: function() {
+        window.location.href = 'onboarding.html?reference=' + reference + '&plan=' + encodeURIComponent(currentPlan) + '&email=' + encodeURIComponent(email) + '&status=pending';
+      }
+    });
+  }
+
+  // Nav toggle
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('active');
+  });
+
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('mobile-menu');
+    var toggle = document.getElementById('nav-toggle');
+    if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.classList.remove('active');
+    }
+  });
+</script>
+
+</body>
+</html>
