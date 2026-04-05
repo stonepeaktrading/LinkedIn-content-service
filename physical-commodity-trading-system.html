@@ -134,7 +134,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 140px 48px 100px;
+    padding: 100px 48px 56px;
     max-width: 1100px;
     margin: 0 auto;
   }
@@ -144,18 +144,18 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 40px;
+    margin-bottom: 28px;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.2s forwards;
   }
 
   .hero-headline {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(42px, 6vw, 80px);
+    font-size: clamp(38px, 5.5vw, 72px);
     font-weight: 300;
-    line-height: 1.1;
+    line-height: 1.05;
     color: var(--white);
-    margin-bottom: 48px;
+    margin-bottom: 32px;
     max-width: 800px;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.4s forwards;
@@ -165,28 +165,28 @@
 
   .hero-body {
     max-width: 620px;
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-mid);
     line-height: 1.9;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.6s forwards;
   }
 
-  .hero-body p { margin-bottom: 20px; }
+  .hero-body p { margin-bottom: 16px; }
   .hero-body p:last-child { margin-bottom: 0; }
 
   .hero-divider {
-    width: 60px;
+    width: 48px;
     height: 1px;
     background: var(--gold);
-    margin: 48px 0;
+    margin: 32px 0;
     opacity: 0;
     animation: fadeUp 0.8s ease 0.8s forwards;
   }
 
   .hero-closing {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
+    font-size: 20px;
     font-style: italic;
     color: var(--gold-light);
     opacity: 0;
@@ -196,7 +196,7 @@
   section {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 100px 48px;
+    padding: 56px 48px;
     border-top: 1px solid var(--border);
   }
 
@@ -205,7 +205,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 56px;
+    margin-bottom: 32px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -775,8 +775,8 @@
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
     .nav-toggle { display: block; }
-    .hero { padding: 96px 24px 64px; }
-    section { padding: 48px 24px; }
+    .hero { padding: 96px 24px 48px; }
+    section { padding: 40px 24px; }
     .changes-grid { grid-template-columns: 1fr; }
     .who-grid { grid-template-columns: 1fr; }
     .plan-row { grid-template-columns: 1fr; gap: 16px; }
@@ -996,67 +996,9 @@
   </div>
 </section>
 
-<!-- About -->
-<section>
-  <div class="section-label">About Stone Peak Trading</div>
-  <div class="about-grid">
-    <div>
-      <div class="about-name">Stone Peak Trading</div>
-      <div class="about-title">Founded by Phillip Tembo</div>
-      <div class="about-stat">
-        <div class="about-stat-num">10</div>
-        <div class="about-stat-label">Years active trading</div>
-      </div>
-      <div class="about-stat">
-        <div class="about-stat-num">4th</div>
-        <div class="about-stat-label">Generation trader</div>
-      </div>
-      <div class="about-stat">
-        <div class="about-stat-num">8+</div>
-        <div class="about-stat-label">Commodity markets</div>
-      </div>
-    </div>
-    <div>
-      <div class="about-quote">"Four generations of trading knowledge distilled into one system."</div>
-      <div class="about-body">
-        <p>Stone Peak Trading is a Zambia-based physical commodity trading company founded by a fourth-generation trader with a decade of active market experience across maize, wheat, soybeans, peanuts, beans and pulses, cashew nuts, sugar and fertilizer markets globally.</p>
-        <p>The buyer and seller network, the trade finance partnerships, the deal structure frameworks inside this program are not concepts borrowed from elsewhere. They are the infrastructure we built and trade through every day.</p>
-        <p>This is not consulting from the outside. We are in the market with you.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- Get Started -->
-<section id="get-started">
-  <div class="get-started-wrap">
-    <div class="get-started-title">Ready to build your<br><em>trading operation?</em></div>
-    <div class="get-started-sub">Spots are limited and every enrollment is reviewed personally by Phil. Select your plan, complete your details, and receive confirmation and onboarding within 48 hours.</div>
-    <div class="checkout-buttons">
-      <button class="checkout-btn" onclick="openModal('12 Monthly Payments', '$1,000 / month', 'Total $12,000', '')">
-        <div class="checkout-btn-price">$1,000</div>
-        <div class="checkout-btn-name">12 Monthly Payments</div>
-        <div class="checkout-btn-saving">Standard rate</div>
-      </button>
-      <button class="checkout-btn" onclick="openModal('5 Monthly Payments', '$1,800 / month', 'Total $9,000', 'Save $3,000 — 3 months free')">
-        <div class="checkout-btn-price">$1,800</div>
-        <div class="checkout-btn-name">5 Monthly Payments</div>
-        <div class="checkout-btn-saving">Save $3,000 &mdash; 3 months free</div>
-      </button>
-      <button class="checkout-btn" onclick="openModal('3 Monthly Payments', '$2,500 / month', 'Total $7,500', 'Save $4,500 — 4.5 months free')">
-        <div class="checkout-btn-price">$2,500</div>
-        <div class="checkout-btn-name">3 Monthly Payments</div>
-        <div class="checkout-btn-saving">Save $4,500 &mdash; 4.5 months free</div>
-      </button>
-      <button class="checkout-btn featured" onclick="openModal('Paid in Full', '$6,000', 'Single payment', 'Save $6,000 — 6 months free')">
-        <div class="checkout-btn-price">$6,000</div>
-        <div class="checkout-btn-name">Paid in Full</div>
-        <div class="checkout-btn-saving">Save $6,000 &mdash; 6 months free</div>
-      </button>
-    </div>
-    <div class="get-started-dm">Already enrolled on a payment plan and ready to convert to paid in full? <a href="https://wa.me/260973789333">WhatsApp Phil directly.</a></div>
-  </div>
-</section>
+
+
 
 <!-- Playbooks -->
 <section>
@@ -1241,4 +1183,4 @@
 </script>
 
 </body>
-</html>
+  </html>
