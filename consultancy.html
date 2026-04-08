@@ -791,6 +791,13 @@
   });
 
   document.addEventListener('click', function(e) {
-    var menu
+    var menu = document.getElementById('mobile-menu');
+    var toggle = document.getElementById('nav-toggle');
+    if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.classList.remove('active');
+    }
+  });
+</script>
+
 </body>
 </html>
