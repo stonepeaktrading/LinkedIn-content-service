@@ -55,370 +55,73 @@
     backdrop-filter: blur(12px);
   }
 
-  .nav-brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 28px;
-    align-items: center;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
+  .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; align-items: center; list-style: none; }
+  .nav-links a { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover, .nav-links a.active { color: var(--gold); }
-
-  .nav-cta {
-    color: var(--gold) !important;
-    border: 1px solid var(--gold-dim);
-    padding: 8px 20px;
-    transition: all 0.3s ease !important;
-  }
-
+  .nav-cta { color: var(--gold) !important; border: 1px solid var(--gold-dim); padding: 8px 20px; transition: all 0.3s ease !important; }
   .nav-cta:hover { background: var(--gold-dim) !important; }
+  .nav-toggle { display: none; background: none; border: none; color: var(--gold); font-size: 20px; cursor: pointer; }
 
-  .nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: var(--gold);
-    font-size: 20px;
-    cursor: pointer;
-  }
-
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 61px; left: 0; right: 0;
-    background: var(--bg-2);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-    z-index: 99;
-    flex-direction: column;
-  }
-
+  .mobile-menu { display: none; position: fixed; top: 61px; left: 0; right: 0; background: var(--bg-2); border-bottom: 1px solid var(--border); padding: 0 24px; z-index: 99; flex-direction: column; }
   .mobile-menu.active { display: flex; }
-
-  .mobile-menu a {
-    font-size: 11px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--text-mid);
-    text-decoration: none;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--border);
-    transition: color 0.2s;
-  }
-
+  .mobile-menu a { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-mid); text-decoration: none; padding: 14px 0; border-bottom: 1px solid var(--border); transition: color 0.2s; }
   .mobile-menu a:last-child { border-bottom: none; }
   .mobile-menu a:hover { color: var(--gold); }
 
-  .hero {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 100px 48px 56px;
-    border-top: 1px solid var(--border);
-    margin-top: 61px;
-  }
+  .hero { max-width: 900px; margin: 0 auto; padding: 100px 48px 56px; border-top: 1px solid var(--border); margin-top: 61px; }
 
-  .hero-tag {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.2s forwards;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+  .hero-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s ease 0.2s forwards; display: flex; align-items: center; gap: 12px; }
+  .hero-tag::before { content: ''; width: 28px; height: 1px; background: var(--gold); flex-shrink: 0; }
 
-  .hero-tag::before {
-    content: '';
-    width: 28px;
-    height: 1px;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
+  .hero-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(38px, 5vw, 68px); font-weight: 300; line-height: 1.05; color: var(--white); margin-bottom: 24px; opacity: 0; animation: fadeUp 0.8s ease 0.4s forwards; }
+  .hero-headline em { font-style: italic; color: var(--gold-light); display: block; }
 
-  .hero-headline {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(38px, 5vw, 68px);
-    font-weight: 300;
-    line-height: 1.05;
-    color: var(--white);
-    margin-bottom: 24px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.4s forwards;
-  }
+  .hero-sub { font-size: 13px; color: var(--text-mid); line-height: 1.9; max-width: 600px; opacity: 0; animation: fadeUp 0.8s ease 0.6s forwards; }
 
-  .hero-headline em {
-    font-style: italic;
-    color: var(--gold-light);
-    display: block;
-  }
+  .section { max-width: 1200px; margin: 0 auto; padding: 56px 48px; border-top: 1px solid var(--border); }
 
-  .hero-sub {
-    font-size: 13px;
-    color: var(--text-mid);
-    line-height: 1.9;
-    max-width: 600px;
-    opacity: 0;
-    animation: fadeUp 0.8s ease 0.6s forwards;
-  }
+  .section-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; display: flex; align-items: center; gap: 16px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 160px; }
 
-  .section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 56px 48px;
-    border-top: 1px solid var(--border);
-  }
-
-  .section-label {
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-    max-width: 160px;
-  }
-
-  /* Story */
-  .story-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 64px;
-    align-items: start;
-  }
-
-  .story-left {}
-
-  .story-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-
-  .story-title {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 32px;
-  }
-
-  .story-stats { display: flex; flex-direction: column; }
-
-  .story-stat {
-    padding: 16px 0;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: baseline;
-    gap: 12px;
-  }
-
-  .story-stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    font-weight: 300;
-    color: var(--gold-light);
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .story-stat-label {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    color: var(--text-dim);
-    text-transform: uppercase;
-  }
-
-  .story-right {}
-
-  .story-quote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px;
-    font-style: italic;
-    font-weight: 300;
-    color: var(--gold-light);
-    line-height: 1.4;
-    border-left: 2px solid var(--gold);
-    padding-left: 28px;
-    margin-bottom: 32px;
-  }
-
-  .story-body {
-    font-size: 13px;
-    color: var(--text-mid);
-    line-height: 1.95;
-  }
-
+  .story-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 64px; align-items: start; }
+  .story-name { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 300; color: var(--white); line-height: 1; margin-bottom: 8px; }
+  .story-title { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 32px; }
+  .story-stat { padding: 16px 0; border-top: 1px solid var(--border); display: flex; align-items: baseline; gap: 12px; }
+  .story-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; color: var(--gold-light); line-height: 1; flex-shrink: 0; }
+  .story-stat-label { font-size: 11px; letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase; }
+  .story-quote { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-style: italic; font-weight: 300; color: var(--gold-light); line-height: 1.4; border-left: 2px solid var(--gold); padding-left: 28px; margin-bottom: 32px; }
+  .story-body { font-size: 13px; color: var(--text-mid); line-height: 1.95; }
   .story-body p { margin-bottom: 20px; }
   .story-body p:last-child { margin-bottom: 0; }
 
-  /* What we do */
   .services-list { display: flex; flex-direction: column; }
-
-  .service-item {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    padding: 32px 0;
-    border-bottom: 1px solid var(--border);
-    gap: 48px;
-    transition: all 0.2s;
-  }
-
+  .service-item { display: grid; grid-template-columns: 280px 1fr; padding: 32px 0; border-bottom: 1px solid var(--border); gap: 48px; }
   .service-item:first-child { border-top: 1px solid var(--border); }
   .service-item:hover .service-item-title { color: var(--gold-light); }
-
-  .service-item-tag {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  .service-item-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.2;
-    transition: color 0.2s;
-    margin-bottom: 8px;
-  }
-
-  .service-item-link {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 12px;
-  }
-
+  .service-item-tag { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .service-item-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--white); line-height: 1.2; transition: color 0.2s; margin-bottom: 8px; }
+  .service-item-link { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; }
   .service-item-link::after { content: '→'; transition: transform 0.2s; }
   .service-item:hover .service-item-link::after { transform: translateX(4px); }
+  .service-item-body { font-size: 13px; color: var(--text-mid); line-height: 1.85; }
 
-  .service-item-body {
-    font-size: 13px;
-    color: var(--text-mid);
-    line-height: 1.85;
-  }
-
-  /* Contact strip */
-  .contact-strip {
-    background: var(--bg-2);
-    border: 1px solid var(--border);
-    padding: 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-    background: var(--border);
-  }
-
-  .contact-strip-item {
-    background: var(--bg-2);
-    padding: 32px;
-    transition: background 0.2s;
-  }
-
+  .contact-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); }
+  .contact-strip-item { background: var(--bg-2); padding: 32px; transition: background 0.2s; }
   .contact-strip-item:hover { background: var(--bg-3); }
-
-  .contact-strip-label {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 10px;
-  }
-
-  .contact-strip-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    color: var(--white);
-  }
-
-  .contact-strip-value a {
-    color: var(--white);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
+  .contact-strip-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .contact-strip-value { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--white); }
+  .contact-strip-value a { color: var(--white); text-decoration: none; transition: color 0.2s; }
   .contact-strip-value a:hover { color: var(--gold); }
 
-  footer {
-    border-top: 1px solid var(--border);
-    padding: 28px 48px;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 24px;
-  }
-
-  .footer-brand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--gold);
-    text-decoration: none;
-  }
-
+  footer { border-top: 1px solid var(--border); padding: 28px 48px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 24px; }
+  .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
   .footer-nav { display: flex; gap: 20px; list-style: none; }
-
-  .footer-nav a {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-dim);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
+  .footer-nav a { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
   .footer-nav a:hover { color: var(--gold); }
   .footer-copy { font-size: 10px; color: var(--text-dim); text-align: right; }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
@@ -441,19 +144,19 @@
   <ul class="nav-links">
     <li><a href="trading.html">Trading</a></li>
     <li><a href="consultancy.html">Consultancy</a></li>
-    <li><a href="physical-commodity-trading-system.html">PCTS™</a></li>
+    <li><a href="physical-commodity-trading-system.html">PCTS&#8482;</a></li>
     <li><a href="playbooks.html">Playbooks</a></li>
     <li><a href="about.html" class="active">About</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="physical-commodity-trading-system.html" class="nav-cta">Enrol Now</a></li>
   </ul>
-  <button class="nav-toggle" id="nav-toggle">☰</button>
+  <button class="nav-toggle" id="nav-toggle">&#9776;</button>
 </nav>
 
 <div class="mobile-menu" id="mobile-menu">
   <a href="trading.html">Trading</a>
   <a href="consultancy.html">Consultancy</a>
-  <a href="physical-commodity-trading-system.html">PCTS™</a>
+  <a href="physical-commodity-trading-system.html">PCTS&#8482;</a>
   <a href="playbooks.html">Playbooks</a>
   <a href="about.html">About</a>
   <a href="contact.html">Contact</a>
@@ -462,52 +165,33 @@
 
 <div class="hero">
   <div class="hero-tag">About Stone Peak Trading</div>
-  <h1 class="hero-headline">
-    Trading is not what we do.
-    <em>It is what we are.</em>
-  </h1>
+  <h1 class="hero-headline">Trading is not what we do.<em>It is what we are.</em></h1>
   <p class="hero-sub">Most people who enter commodity markets learn the industry. We were born into it. Four generations of traders before us — and a decade of our own active market experience on top of that.</p>
 </div>
 
-<!-- The Story -->
 <section class="section">
   <div class="section-label">The story</div>
   <div class="story-grid">
-    <div class="story-left">
+    <div>
       <div class="story-name">Phillip Tembo</div>
-      <div class="story-title">Founder & Managing Director</div>
-      <div class="story-stats">
-        <div class="story-stat">
-          <div class="story-stat-num">4th</div>
-          <div class="story-stat-label">Generation trader</div>
-        </div>
-        <div class="story-stat">
-          <div class="story-stat-num">10</div>
-          <div class="story-stat-label">Years active trading</div>
-        </div>
-        <div class="story-stat">
-          <div class="story-stat-num">8+</div>
-          <div class="story-stat-label">Commodity markets</div>
-        </div>
-        <div class="story-stat">
-          <div class="story-stat-num">2</div>
-          <div class="story-stat-label">Regions — Southern & East Africa</div>
-        </div>
-      </div>
+      <div class="story-title">Founder &amp; Managing Director</div>
+      <div class="story-stat"><div class="story-stat-num">4th</div><div class="story-stat-label">Generation trader</div></div>
+      <div class="story-stat"><div class="story-stat-num">10</div><div class="story-stat-label">Years active trading</div></div>
+      <div class="story-stat"><div class="story-stat-num">8+</div><div class="story-stat-label">Commodity markets</div></div>
+      <div class="story-stat"><div class="story-stat-num">2</div><div class="story-stat-label">Regions — Southern &amp; East Africa</div></div>
     </div>
-    <div class="story-right">
+    <div>
       <div class="story-quote">"We saw the gaps. We saw the unprofessionalism. We built something better."</div>
       <div class="story-body">
         <p>Our great-grandfather was the first. He traded commodities at a time when physical markets in Zambia ran entirely on trust, relationships and the ability to read a harvest before anyone else could. That instinct passed through our grandfather and his generation — his siblings and cousins all active in trade, building networks across the region. By the third generation, that family knowledge had grown into something institutional — one family member today runs one of the largest milling companies in Zambia.</p>
-        <p>Phil is the fourth generation. And he did not inherit a position — he built one. A decade of active trading across maize, wheat, soybeans, peanuts, beans and pulses, cashew nuts, sugar and fertilizer across Southern and East African markets. A background that also spans farming, bulk fuel distribution, transport and logistics, and real estate — all of which inform how he sees the full chain from soil to global market.</p>
-        <p>Stone Peak Trading was founded because Phil saw three things simultaneously: market gaps nobody was exploiting, unprofessionalism that was costing traders money, and a total absence of systematic thinking in a market that rewarded it. He built Stone Peak Trading to operate differently — with market intelligence, deal discipline and a standard of execution the market wasn't used to seeing.</p>
+        <p>Phil is the fourth generation. A decade of active trading across maize, wheat, soybeans, peanuts, beans and pulses, cashew nuts, sugar and fertilizer across Southern and East African markets. A background that also spans farming, bulk fuel distribution, transport and logistics, and real estate — all of which inform how he sees the full chain from soil to global market.</p>
+        <p>Stone Peak Trading was founded because Phil saw three things simultaneously: market gaps nobody was exploiting, unprofessionalism that was costing traders money, and a total absence of systematic thinking in a market that rewarded it. We built Stone Peak Trading to operate differently — with market intelligence, deal discipline and a standard of execution the market was not used to seeing.</p>
         <p>That standard now drives everything — our trading operation, our consulting engagements, our education systems and every deal we facilitate.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- What we do -->
 <section class="section">
   <div class="section-label">What we do</div>
   <div class="services-list">
@@ -530,8 +214,8 @@
     <div class="service-item">
       <div>
         <div class="service-item-tag">Done With You</div>
-        <div class="service-item-title">The Physical Commodity Trading System™</div>
-        <a href="physical-commodity-trading-system.html" class="service-item-link">View PCTS™</a>
+        <div class="service-item-title">The Physical Commodity Trading System&#8482;</div>
+        <a href="physical-commodity-trading-system.html" class="service-item-link">View PCTS&#8482;</a>
       </div>
       <div class="service-item-body">A 12-month private system for individual traders who want a consistent, profitable pipeline. We bring the buyer and seller network, the trade finance partnerships and the deal structure frameworks that power our own trading operation — and we work alongside you to apply them to yours.</div>
     </div>
@@ -541,12 +225,11 @@
         <div class="service-item-title">The Stone Peak Trading Playbook Library</div>
         <a href="playbooks.html" class="service-item-link">View playbooks</a>
       </div>
-      <div class="service-item-body">Every stage of a physical commodity trade documented by active traders. From understanding how markets work to sourcing, deal structure, trade finance, risk management and building a repeatable pipeline. Available individually, by stage, or as a complete collection. Included in full inside The Physical Commodity Trading System™ at no extra cost.</div>
+      <div class="service-item-body">Every stage of a physical commodity trade documented by active traders. From understanding how markets work to sourcing, deal structure, trade finance, risk management and building a repeatable pipeline. Available individually, by stage, or as a complete collection. Included in full inside The Physical Commodity Trading System&#8482; at no extra cost.</div>
     </div>
   </div>
 </section>
 
-<!-- Contact -->
 <section class="section">
   <div class="section-label">Get in touch</div>
   <div class="contact-strip">
@@ -571,7 +254,7 @@
       <div class="contact-strip-value"><a href="mailto:trade@stonepeaktrading.com">trade@stonepeaktrading.com</a></div>
     </div>
     <div class="contact-strip-item">
-      <div class="contact-strip-label">Program Enrollment</div>
+      <div class="contact-strip-label">PCTS&#8482; Enrollment</div>
       <div class="contact-strip-value"><a href="mailto:enrol@stonepeaktrading.com">enrol@stonepeaktrading.com</a></div>
     </div>
   </div>
@@ -582,10 +265,26 @@
   <ul class="footer-nav">
     <li><a href="trading.html">Trading</a></li>
     <li><a href="consultancy.html">Consultancy</a></li>
-    <li><a href="physical-commodity-trading-system.html">PCTS™</a></li>
+    <li><a href="physical-commodity-trading-system.html">PCTS&#8482;</a></li>
     <li><a href="playbooks.html">Playbooks</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
- 
+  </ul>
+  <div class="footer-copy">&copy; 2026 Stone Peak Trading. All rights reserved.</div>
+</footer>
+
+<script>
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    document.getElementById('mobile-menu').classList.toggle('active');
+  });
+  document.addEventListener('click', function(e) {
+    var menu = document.getElementById('mobile-menu');
+    var toggle = document.getElementById('nav-toggle');
+    if (menu && toggle && !menu.contains(e.target) && !toggle.contains(e.target)) {
+      menu.classList.remove('active');
+    }
+  });
+</script>
+
 </body>
 </html>
